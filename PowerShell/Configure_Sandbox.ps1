@@ -3,6 +3,10 @@
     Windows Sandbox https://learn.microsoft.com/en-us/windows/security/application-security/application-isolation/windows-sandbox/windows-sandbox-overview
 #>
 
+# PowerShell config
+Install-PackageProvider -Name NuGet -MinimumVersion 2.8.5.201 -Force
+Set-PSRepository -Name "PSGallery" -InstallationPolicy Trusted
+
 # Setup winget - https://learn.microsoft.com/en-us/windows/package-manager/winget/#install-winget-on-windows-sandbox
 $progressPreference = 'silentlyContinue'
 Write-Information "Downloading WinGet and its dependencies..."
@@ -17,6 +21,9 @@ Add-AppxPackage Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle
 winget install -e --id Microsoft.VisualStudioCode --override '/SILENT /mergetasks="!runcode,addcontextmenufiles,addcontextmenufolders"' --accept-package-agreements --accept-source-agreements
 winget install -e --id Python.Python.3.11 --accept-package-agreements --accept-source-agreements
 winget install -e --id Notepad++.Notepad++ --accept-package-agreements --accept-source-agreements
+winget install -e --id baremetalsoft.baretail --accept-package-agreements --accept-source-agreements
+winget install -e --id Microsoft.Sysinternals.ProcessExplorer --accept-package-agreements --accept-source-agreements
+winget install -e --id Microsoft.Sysinternals.Autoruns --accept-package-agreements --accept-source-agreements
 
 # Configuring explorer to show file extensions by default
 $key = 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced'
