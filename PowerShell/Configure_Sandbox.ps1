@@ -13,8 +13,14 @@ Add-AppxPackage Microsoft.VCLibs.x64.14.00.Desktop.appx
 Add-AppxPackage Microsoft.UI.Xaml.2.8.x64.appx
 Add-AppxPackage Microsoft.DesktopAppInstaller_8wekyb3d8bbwe.msixbundle
 
-
 # Winget install commands
 winget install -e --id Microsoft.VisualStudioCode --override '/SILENT /mergetasks="!runcode,addcontextmenufiles,addcontextmenufolders"' --accept-package-agreements --accept-source-agreements
 winget install -e --id Python.Python.3.11 --accept-package-agreements --accept-source-agreements
 winget install -e --id Notepad++.Notepad++ --accept-package-agreements --accept-source-agreements
+
+# Configuring explorer to show file extensions by default
+$key = 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced'
+Set-ItemProperty $key Hidden 1
+Set-ItemProperty $key HideFileExt 0
+Set-ItemProperty $key ShowSuperHidden 1
+Stop-Process -processname explorer
