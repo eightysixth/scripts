@@ -24,6 +24,8 @@ winget install -e --id Notepad++.Notepad++ --accept-package-agreements --accept-
 winget install -e --id baremetalsoft.baretail --accept-package-agreements --accept-source-agreements
 winget install -e --id Microsoft.Sysinternals.ProcessExplorer --accept-package-agreements --accept-source-agreements
 winget install -e --id Microsoft.Sysinternals.Autoruns --accept-package-agreements --accept-source-agreements
+winget install -e --id=Gyan.FFmpeg --accept-package-agreements --accept-source-agreements
+winget install -e --id=VideoLAN.VLC --accept-package-agreements --accept-source-agreements
 
 # Configuring explorer to show file extensions by default
 $key = 'HKCU:\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced'
