@@ -8,7 +8,8 @@
  * it will appear as a clickable link with the page title as the link text.
  * 
  * Usage:
- * 1. Save this as a browser bookmark with the minified version (.min.js in this directory)
+ * 1. Save this as a browser bookmark with the minified version 
+ *      (.min.js file exists in this directory - generated directly on updates)
  * 2. Navigate to any Confluence page
  * 3. Click the bookmarklet
  * 4. Paste anywhere rich text is supported
@@ -17,6 +18,7 @@
  * - Page must have: <meta id="confluence-base-url">
  * - Page must have: <link rel="shortlink">
  * - Page must have: <meta name="ajs-page-title">
+ * 
  */
 
 javascript:(function() {
