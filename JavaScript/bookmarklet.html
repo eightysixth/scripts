@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confluence Shortlink Bookmarklet</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='75' font-size='75' fill='%234A90E2'>🔗</text></svg>">
+    <script>
+        // Dynamically load the minified bookmarklet code
+        fetch('confluence-shortlink-bookmarklet.min.js')
+            .then(response => response.text())
+            .then(code => {
+                // Store the bookmarklet code for use in the link
+                window.bookmarkletCode = code;
+            })
+            .catch(err => console.error('Failed to load minified bookmarklet:', err));
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .container {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            max-width: 600px;
+            padding: 50px 40px;
+            text-align: center;
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 32px;
+        }
+        
+        .icon {
+            font-size: 64px;
+            margin-bottom: 20px;
+            display: block;
+        }
+        
+        .description {
+            color: #666;
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+        
+        .bookmarklet-section {
+            background: #f5f5f5;
+            border-left: 4px solid #667eea;
+            padding: 25px;
+            margin: 30px 0;
+            border-radius: 8px;
+            text-align: left;
+        }
+        
+        .bookmarklet-section h2 {
+            color: #333;
+            font-size: 18px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .instruction {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+        
+        .instruction strong {
+            color: #333;
+        }
+        
+        .bookmarklet-link {
+            display: inline-block;
+            padding: 15px 25px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            margin-top: 15px;
+            cursor: move;
+            transition: transform 0.2s, box-shadow 0.2s;
+            font-size: 16px;
+            user-select: none;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+        
+        .bookmarklet-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+        
+        .bookmarklet-link:active {
+            transform: translateY(0);
+        }
+        
+        .features {
+            text-align: left;
+            margin-top: 30px;
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .features h3 {
+            color: #333;
+            margin-bottom: 12px;
+            font-size: 16px;
+        }
+        
+        .features ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .features li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .features li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #36b37e;
+            font-weight: bold;
+        }
+        
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            color: #999;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <span class="icon">🔗</span>
+        <h1>Confluence Shortlink Bookmarklet</h1>
+        
+        <p class="description">
+            Quickly copy rich text links from Confluence pages to your clipboard. Perfect for pasting into emails, documents, and other applications.
+        </p>
+        
+        <div class="bookmarklet-section">
+            <h2>📌 Installation</h2>
+            <p class="instruction">
+                <strong>Drag and drop this button to your bookmarks bar:</strong>
+            </p>
+            <div style="text-align: center;">
+                <a id="bookmarklet-link" class="bookmarklet-link" href="#" onclick="return false;">Confluence Shortlink</a>
+            </div>
+            <script>
+                // Once the minified code is loaded, set up the bookmarklet link
+                const checkAndSetLink = () => {
+                    if (window.bookmarkletCode) {
+                        const bookmarkletLink = document.getElementById('bookmarklet-link');
+                        bookmarkletLink.href = 'javascript:' + window.bookmarkletCode;
+                    } else {
+                        // Retry if not loaded yet
+                        setTimeout(checkAndSetLink, 100);
+                    }
+                };
+                
+                if (document.readyState === 'loading') {
+                    document.addEventListener('DOMContentLoaded', checkAndSetLink);
+                } else {
+                    checkAndSetLink();
+                }
+            </script>
+            <p class="instruction" style="margin-top: 15px; font-size: 13px; text-align: center;">
+                You can also right-click the button and select "Add as bookmark"
+            </p>
+        </div>
+        
+        <div class="features">
+            <h3>✨ Features</h3>
+            <ul>
+                <li>Extracts page title and shortlink from Confluence pages</li>
+                <li>Copies rich HTML link to clipboard (works with Word, Outlook, Confluence)</li>
+                <li>Also copies plain text format as fallback</li>
+                <li>Shows success message when link is copied</li>
+                <li>Works on any Confluence instance</li>
+            </ul>
+        </div>
+        
+        <div class="features">
+            <h3>🚀 How to Use</h3>
+            <ul>
+                <li>Navigate to any Confluence page</li>
+                <li>Click the bookmarklet button</li>
+                <li>Paste the link into any rich text editor</li>
+            </ul>
+        </div>
+        
+        <div class="footer">
+            <p>Confluence Shortlink Bookmarklet • Built for better link sharing</p>
+        </div>
+    </div>
+</body>
+</html>
