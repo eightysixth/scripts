@@ -1,0 +1,33 @@
+name: Minify Bookmarklet
+
+on:
+  push:
+    paths:
+      - 'JavaScript/confluence-shortlink-bookmarklet.js'
+  workflow_dispatch:
+
+jobs:
+  minify:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Minify bookmarklet
+        run: |
+          cd JavaScript
+          sed 's:/\*[^*]*\*\+\([^/*][^*]*\*\+\)*/::g; s://.*::g' confluence-shortlink-bookmarklet.js | tr -d '\n' | sed 's/javascript://g' | sed 's/^/javascript:/' | tr -s ' ' > confluence-shortlink-bookmarklet.min.js
+      
+      - name: Commit minified file
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add JavaScript/confluence-shortlink-bookmarklet.min.js
+          git diff --quiet && git diff --staged --quiet || git commit -m "Auto-minify bookmarklet [skip ci]"
+      
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}
