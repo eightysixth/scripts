@@ -8,7 +8,7 @@
  * it will appear as a clickable link with the page title as the link text.
  * 
  * Usage:
- * 1. Save this as a browser bookmark with the minified version
+ * 1. Save this as a browser bookmark with the minified version (.min.js in this directory)
  * 2. Navigate to any Confluence page
  * 3. Click the bookmarklet
  * 4. Paste anywhere rich text is supported
